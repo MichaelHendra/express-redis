@@ -16,11 +16,11 @@ app.use(express.json());
 
 const homeRoute = require("./routes/home");
 app.use("/api/home", homeRoute);
-const cacheKey = "ruangan_m_data";
+const cacheKey = "datapoli30day_data";
 
 
 //cache data ruangan_m_data
-cron.schedule('* 5 * * *', async () => {
+cron.schedule('*/5 * * * *', async () => {
     try {
         const result = await pool.query(`SELECT * FROM ruangan_m`);
         await redisClient.set(cacheKey, JSON.stringify(result.rows));
